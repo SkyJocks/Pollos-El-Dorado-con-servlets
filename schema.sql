@@ -1,8 +1,4 @@
--- ==============================================================
--- SISTEMA DE CONTROL AVÍCOLA - POLLOS ELDORADO
--- Evidencia SENA: Codificación de módulos de software
--- Base de datos: pollos_eldorado
--- ==============================================================
+# ASI SE CREO LA BASE DE DATOS DE POLLOS EL DORADO
 
 CREATE DATABASE IF NOT EXISTS pollos_eldorado
 CHARACTER SET utf8mb4

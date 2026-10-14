@@ -1,60 +1,72 @@
 # Pollos ElDorado — Sistema de Control Avícola 🐔
 
-> **Evidencia SENA:** GA7-220501096-AA2-EV02  
-> **Actividad:** Módulos de software codificados y probados  
-> **Programa:** Tecnólogo en Análisis y Desarrollo de Software (ADSO)
+**Evidencia SENA:** GA7-220501096-AA2-EV02  
+**Actividad:** Módulos de software codificados y probados  
+**Programa:** Tecnólogo en Análisis y Desarrollo de Software (ADSO)
 
----
+## 1. Descripción del proyecto
 
-## 📌 Descripción del Módulo
-Módulo web para el registro diario de mortalidad de pollos por galpón en una granja avícola. Implementa el patrón arquitectónico **MVC (Modelo-Vista-Controlador)** con persistencia en **MySQL** mediante **JDBC**.
+Pollos ElDorado es un sistema web pensado para llevar un control de la mortalidad de los pollos en una granja avícola. Permite registrar el número del galpón, la cantidad de pollos muertos y las observaciones correspondientes.
 
----
+La información se guarda en una base de datos MySQL para facilitar su consulta y mantener un registro de los datos ingresados.
 
-## 🛠️ Tecnologías Utilizadas
-* **Lenguaje:** Java 21
-* **Controlador:** Java Servlets (`jakarta.servlet-api` 6.0)
-* **Vista:** HTML5, CSS3 responsivo y JSP (`resultado.jsp`)
-* **Modelo / Persistencia:** MySQL 8.0 vía JDBC (`mysql-connector-j` 9.4.0)
-* **Servidor de Aplicaciones:** Apache Tomcat 10.1.61
-* **Empaquetado y Construcción:** Apache Maven (empaquetado `.war`)
+## 2. Tecnologías utilizadas
 
----
+Para desarrollar este módulo se utilizan las siguientes herramientas:
 
-## 🏛️ Arquitectura del Sistema (MVC)
-* **Vista (`View`):**
-  * `src/main/webapp/index.html`: Formulario de captura con validaciones HTML5.
-  * `src/main/webapp/resultado.jsp`: Vista dinámica con los datos guardados y el ID autoincremental de MySQL.
-* **Controlador (`Controller`):**
-  * `MortalidadServlet.java`: Recibe peticiones HTTP POST, valida rangos positivos, ejecuta sentencias con `PreparedStatement` y direcciona a la vista.
-* **Modelo (`Model`):**
-  * `Conexion.java`: Administra el ciclo de conexión a MySQL vía `DriverManager`.
-  * `mortalidad` (Tabla MySQL): Almacena ID, galpón, cantidad, observaciones y fecha de registro.
+- **Java 21:** para programar la lógica del sistema.
+- **HTML y CSS:** para crear el formulario y darle una presentación sencilla.
+- **Java Servlets:** para recibir y procesar los datos enviados desde el formulario.
+- **JSP:** para mostrar el resultado del registro.
+- **MySQL 8.0:** para almacenar la información.
+- **JDBC:** para conectar Java con la base de datos.
+- **Apache Tomcat 10.1.61:** para ejecutar la aplicación web.
+- **Apache Maven:** para compilar el proyecto y generar el archivo WAR.
 
----
+## 3. Organización del sistema
 
-## 🚀 Puesta en Marcha
+El proyecto está organizado en tres partes principales:
 
-### 1. Base de Datos
-Ejecuta el script SQL incluido en la raíz:
+**Vista:** contiene el archivo `index.html`, donde se ingresan los datos, y `resultado.jsp`, que muestra el resultado del registro.
+
+**Controlador:** está en `MortalidadServlet.java`. Se encarga de recibir los datos del formulario, validar la información y procesar el registro.
+
+**Conexión y almacenamiento:** la clase `Conexion.java` permite conectar el sistema con MySQL mediante JDBC. La tabla `mortalidad` almacena el número del galpón, la cantidad de pollos muertos, las observaciones y la fecha del registro.
+
+Esta organización ayuda a mantener el código ordenado y facilita realizar cambios en el sistema.
+
+## 4. Pasos para ejecutar el proyecto
+
+### 4.1. Configurar la base de datos
+
+Primero, se debe crear la base de datos y la tabla necesarias para guardar los registros. Si se utiliza el archivo `schema.sql`, se puede ejecutar desde MySQL con el comando:
+
 ```sql
 SOURCE schema.sql;
 ```
 
-### 2. Compilar con Maven
-En la raíz del proyecto:
+### 4.2. Compilar el proyecto
+
+Desde la carpeta principal del proyecto, se ejecuta el siguiente comando:
+
 ```bash
 mvn clean package
 ```
-Generará el paquete `target/pollos-eldorado.war`.
 
-### 3. Despliegue en Tomcat 10
-Copia el archivo `pollos-eldorado.war` a la carpeta `webapps/` de tu instalación de Tomcat e inicia el servidor:
-```bash
-startup.bat
-```
+Si la compilación termina correctamente, se genera el archivo `pollos-eldorado.war` dentro de la carpeta `target`.
 
-### 4. Acceso en el Navegador
-```text
+### 4.3. Ejecutar en Tomcat
+
+Se copia el archivo WAR en la carpeta `webapps` de Apache Tomcat. Después, se inicia el servidor para que cargue la aplicación.
+
+### 4.4. Abrir el sistema
+
+Cuando Tomcat esté funcionando, se puede ingresar desde el navegador a la siguiente dirección:
+
 http://localhost:8080/pollos-eldorado/
-```
+
+Desde allí se podrá acceder al formulario de registro de mortalidad.
+
+## 5. Resultado esperado
+
+Con este módulo se busca facilitar el registro de la mortalidad de los pollos por galpón y conservar la información en una base de datos. También permite practicar el uso de Java, Servlets, JSP, JDBC y MySQL en el desarrollo de una aplicación web.
