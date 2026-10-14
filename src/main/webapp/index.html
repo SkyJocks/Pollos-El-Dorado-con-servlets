@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pollos ElDorado - Sistema de Control Avícola</title>
+    <style>
+        :root {
+            --verde-oscuro: #1b4332;
+            --verde-medio: #2d6a4f;
+            --verde-claro: #52b788;
+            --verde-fondo: #f4f7f4;
+            --amarillo-dorado: #e5a93b;
+            --amarillo-suave: #fffbeb;
+            --texto-oscuro: #1f2937;
+            --texto-muted: #6b7280;
+            --borde: #d1d5db;
+            --blanco: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--verde-fondo);
+            color: var(--texto-oscuro);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .contenedor {
+            background-color: var(--blanco);
+            width: 100%;
+            max-width: 520px;
+            border-radius: 14px;
+            box-shadow: 0 10px 25px rgba(27, 67, 50, 0.08);
+            border: 1px solid #e5e7eb;
+            overflow: hidden;
+        }
+
+        .franja-dorada {
+            height: 6px;
+            background: linear-gradient(90deg, var(--amarillo-dorado), #f59e0b);
+        }
+
+        .encabezado {
+            background-color: var(--verde-oscuro);
+            color: var(--blanco);
+            padding: 24px 28px;
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: rgba(229, 169, 59, 0.2);
+            color: #ffd166;
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 8px;
+            border: 1px solid rgba(229, 169, 59, 0.4);
+        }
+
+        .encabezado h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 4px;
+        }
+
+        .encabezado .subtitulo {
+            font-size: 0.92rem;
+            color: #d8f3dc;
+        }
+
+        .cuerpo-formulario {
+            padding: 28px;
+        }
+
+        .titulo-seccion {
+            font-size: 1.15rem;
+            color: var(--verde-medio);
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 2px solid #eef2f0;
+            padding-bottom: 10px;
+        }
+
+        .campo {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--verde-oscuro);
+            margin-bottom: 6px;
+        }
+
+        .opcional {
+            font-size: 0.75rem;
+            font-weight: normal;
+            color: var(--texto-muted);
+        }
+
+        input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 11px 14px;
+            border: 1.5px solid var(--borde);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            color: var(--texto-oscuro);
+            background-color: #fafbfc;
+            transition: all 0.2s ease;
+        }
+
+        input[type="number"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--verde-medio);
+            background-color: var(--blanco);
+            box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.15);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 85px;
+        }
+
+        .ayuda {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--texto-muted);
+            margin-top: 4px;
+        }
+
+        .btn-enviar {
+            width: 100%;
+            padding: 13px;
+            background-color: var(--verde-medio);
+            color: var(--blanco);
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            box-shadow: 0 4px 10px rgba(45, 106, 79, 0.2);
+            margin-top: 6px;
+        }
+
+        .btn-enviar:hover {
+            background-color: var(--verde-oscuro);
+        }
+
+        .btn-enviar:active {
+            transform: scale(0.99);
+        }
+
+        .pie {
+            text-align: center;
+            font-size: 0.78rem;
+            color: var(--texto-muted);
+            padding: 14px 28px 20px;
+            border-top: 1px solid #f3f4f6;
+        }
+    </style>
+</head>
+<body>
+
+    <main class="contenedor">
+        <!-- Detalle de color amarillo discreto -->
+        <div class="franja-dorada"></div>
+
+        <!-- Encabezado corporativo -->
+        <header class="encabezado">
+            <span class="badge">Control Diario</span>
+            <h1>Pollos ElDorado</h1>
+            <p class="subtitulo">Sistema de control avícola</p>
+        </header>
+
+        <!-- Formulario conectado con MortalidadServlet -->
+        <section class="cuerpo-formulario">
+            <h2 class="titulo-seccion">Registrar mortalidad</h2>
+
+            <form action="mortalidad" method="post">
+                <div class="campo">
+                    <label for="galpon">Número de galpón:</label>
+                    <input type="number" 
+                           id="galpon" 
+                           name="galpon" 
+                           min="1" 
+                           placeholder="Ej. 1, 2, 3..." 
+                           required>
+                    <span class="ayuda">Ingresa el número identificador del galpón.</span>
+                </div>
+
+                <div class="campo">
+                    <label for="cantidad">Cantidad de pollos muertos:</label>
+                    <input type="number" 
+                           id="cantidad" 
+                           name="cantidad" 
+                           min="1" 
+                           placeholder="Ej. 5" 
+                           required>
+                    <span class="ayuda">Número total de bajas registradas hoy.</span>
+                </div>
+
+                <div class="campo">
+                    <label for="observaciones">Observaciones <span class="opcional">(Opcional)</span>:</label>
+                    <textarea id="observaciones" 
+                              name="observaciones" 
+                              rows="3" 
+                              placeholder="Ej. Síntomas observados, falla en ventilación, etc."></textarea>
+                </div>
+
+                <button type="submit" class="btn-enviar">Registrar reporte</button>
+            </form>
+        </section>
+
+        <footer class="pie">
+            Pollos ElDorado &bull; Registro Operativo Avícola &bull; SENA
+        </footer>
+    </main>
+
+</body>
+</html>
